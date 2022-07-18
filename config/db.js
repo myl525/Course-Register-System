@@ -20,20 +20,18 @@ mongoose.connect(dbconf);
 const Course = new mongoose.Schema({
     name: String,
     id: String,
+    section: Number,
     capacity: Number,
     currentNumberOfStudent: Number,
     students: [String],
     instructor: String,
-    section: Number,
-    location: String,
-    full: Boolean
+    location: String
 })
 
 const Admin = new mongoose.Schema({
     username: String,
     password: String,
 })
-
 
 const Student = new mongoose.Schema({
     username: String,
