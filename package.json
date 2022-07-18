@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,9 +19,13 @@
   "dependencies": {
     "express": "^4.18.1",
     "express-session": "^1.17.3",
+    "hbs": "^4.2.0",
     "mongoose": "^6.4.5",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.1.2"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
   }
 }
