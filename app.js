@@ -32,11 +32,12 @@ app.use(function(req, res, next){
 	next();
 });
 //routes
-const index = require('./routes/index');
+const index = require('./routes/index/index');
 const user = require('./routes/user');
+const adminCourse = require('./routes/admin/course');
 //
 app.use('/', index);
 app.use('/', user);
-
+app.use('/', adminCourse);
 
 app.listen(3000);

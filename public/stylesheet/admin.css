@@ -1,0 +1,54 @@
+body {
+    background-color: #779C9A;
+}
+
+
+.course_container {
+    background-color: white;
+    height: 70vh;
+    width: 70%;
+    margin: 10vh auto;
+    box-shadow: 0 0 0.5rem lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search_area {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border: solid black 1px;
+}
+
+.search_bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search_bar {
+    user-select: none;
+}
+
+.search_input {
+    outline: none;
+    border: none;
+}
+
+.search_input::placeholder {
+    color: lightgray;
+}
+
+.expand_underline {
+    background-color: black;
+    width: 0px;
+    height: 0.5px;
+}
+
+.search_input:focus + div {
+    width: 100%;
+    transition: width 1s;
+}

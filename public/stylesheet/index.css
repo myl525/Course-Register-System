@@ -22,6 +22,7 @@
     justify-content: space-between;
     border-radius: 0.2rem;
     overflow: hidden;
+    box-shadow: 0 0 0.5rem white;
 }
 
 .modal_close_btn {
@@ -46,13 +47,13 @@
     background: url(https://picsum.photos/600/) center no-repeat;
 }
 
-.user_form {
+.auth_form {
     background-color: white;
     width: 80%;
     padding: 3rem 1rem;
 }
 
-.user_form label {
+.auth_form label {
     display: block;
     font-size: 1rem;
     margin-bottom: 1rem;
@@ -63,7 +64,8 @@
     font-family: 'Roboto';
 }
 
-.user_form input {
+.auth_form input,
+.auth_form select {
     width: 60%;
     display: block;
     outline: none;
@@ -74,13 +76,26 @@
     border-radius: 0.2rem;
 }
 
-.user_form input:focus {
+.auth_form input:focus {
     border: none;
     box-shadow: 0 0 0.2rem #76B2BA;
     transition: box-shadow 0.25s;
 }
 
-.user_btn {
+.error_msg {
+    color: red;
+    font-size: 0.8rem;
+}
+
+.error_input {
+    border: solid red 1px !important;
+}
+
+.error_input:focus {
+    box-shadow: none !important;
+}
+
+.auth_btn {
     width: 60%;
     display: block;
     outline: none;
@@ -88,25 +103,25 @@
     background-color: #76B2BA;
     border-radius: 100px;
     padding: 0.8rem 1rem;
-    margin: 2rem 0;
+    margin: 3rem 0;
     color: white;
     font-weight: bold;
     text-transform: uppercase;
     transition: opacity 0.25s;
 }
 
-.user_btn:hover {
+.auth_btn:hover {
     cursor: pointer;
     opacity: 0.75;
     transition: opacity 0.75;
 }
 
-.user_link {
+.auth_link {
     text-decoration: underline;
     color: #76B2BA;
 }
 
-.user_link:hover {
+.auth_link:hover {
     opacity: 0.75;
 }
 
@@ -115,15 +130,6 @@
     background-color: #779C9A;
     margin: 0;
     padding: 5rem 0;
-}
-
-.container {
-    /*color: ;*/
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .container h1 {
@@ -141,19 +147,22 @@
     width: 50%;
 }
 
-.login_btn {
+#authModalOpenBtn {
     color: black;
     display: inline-block;
     background-color: #E5CAB0;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 0.5em 2em;
+    padding: 0.5em 3em;
+    outline: none;
+    border: none;
     border-radius: 100px;
     margin-top: 1em;
     transition: all 0.25s;
 }
 
-.login_btn:hover {
+#authModalOpenBtn:hover {
+    cursor: pointer;
     opacity: 0.75;
     transition: opacity 0.25s;
 }

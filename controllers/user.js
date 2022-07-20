@@ -5,11 +5,11 @@ const Admin = mongoose.model('Admin');
 const Student = mongoose.model('Student');
 
 const login = (req, res, next) => {
-    if(req.body.identity === 'Admin') {
+    if(req.body.identity === 'admin') {
         passport.authenticate('adminLocal', (err, user) => {
             if(user) {
                 req.logIn(user, (err) => {
-                    res.send({loggedIn: true, user: req.user.username});
+                    res.send({loggedIn: true, user: req.user.username, identity: 'admin'});
                 });
             }else {
                 res.send({loggedIn: false, msg: "Your username or password is incorrect"});
@@ -19,7 +19,7 @@ const login = (req, res, next) => {
         passport.authenticate('studentLocal', (err, user) => {
             if(user) {
                 req.logIn(user, (err) => {
-                    res.send({loggedIn: true, user: req.user.username});
+                    res.send({loggedIn: true, user: req.user.username, identity: 'student'});
                 });
             }else{
                 res.send({loggedIn: false, msg: "Your username or password is incorrect"});
@@ -39,7 +39,7 @@ const register = (req, res) => {
             Student.register(new Student({username: req.body.username, name: req.body.name}), req.body.password, function(err, user){
                 if(err){
                     console.log(err);
-                    res.send({loggedIn: false, error: "invalid info"});
+                    res.send({loggedIn: false, error: err});
                 }else{
                     passport.authenticate('studentLocal')(req, res, function(){
                         res.send({loggedIn: true, user: req.user.username});

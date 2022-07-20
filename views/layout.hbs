@@ -3,58 +3,69 @@
 <title>CRS</title>
 <link rel="stylesheet" href="/stylesheet/layout.css">
 <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-<script src="/javascript/layout.js"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="container">
-                <ul class="nav_items">
-                    <li class="nav_item">
-                        <a href="/home" class="nav_logo">CRS</a>
-                    </li>
-                    <li class="nav_item">
-                        <a href="/home" class="nav_link">Home</a>
-                    </li>
-                    <li class="nav_item">
-                        <a href="#" class="nav_link">About</a>
-                    </li>
-                    <li class="nav_item">
-                        <a href="#" class="nav_link">Contact</a>
-                    </li>
-                </ul>
-
-                <div class="nav_dropdown">
-                    <button class="nav_dropdown__btn" id="nav_dropdown__btn">
-                        {{#if user}}
-                            <span>welcome, {{user.name}}</span>
-                        {{else}}
-                            <span class="iconify" data-icon="ant-design:user-outlined"></span>
-                        {{/if}}
-                    </button>
-
-                    <ul class="element_hidden" id="nav_dropdown__items">
-                        {{#if user}}
-                            <li class="nav_dropdown__item">
-                                <a href="/api/logout" id="logOutBtn" class="nav_dropdown__link">
-                                    <span class="iconify" data-icon="ant-design:user-delete-outlined"></span>
-                                    <span>Log Out</span>
-                                </a>
-                            </li>
-                        {{else}}
-                            <li class="nav_dropdown__item">
-                                <a href="#" id="openUserModalBtn" class="nav_dropdown__link">
-                                    <span class="iconify" data-icon="ant-design:user-add-outlined"></span>
-                                    <span>Sign Up or Log In</span>
-                                </a>
-                            </li>
-                        {{/if}}
+    {{#if index}}
+    {{!-- render navbar for index page --}}
+        <header>
+            <nav>
+                <div class="container">
+                    <ul class="nav_items">
+                        <li class="nav_item">
+                            <a href="/" class="nav_logo">CRS</a>
+                        </li>
+                        <li class="nav_item">
+                            <a href="/" class="nav_link">Home</a>
+                        </li>
+                        <li class="nav_item">
+                            <a href="#" class="nav_link">About</a>
+                        </li>
+                        <li class="nav_item">
+                            <a href="#" class="nav_link">Contact</a>
+                        </li>
                     </ul>
                 </div>
-                
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
+    {{else}}
+    {{!-- not in index page --}}
+        {{!-- if user is admin --}}
+        {{#if admin}}
+            <header>
+                <nav>
+                    <div class="container">
+                        <ul class="nav_items">
+                            <li class="nav_item">
+                                <a href="/admin/course" class="nav_logo">CRS</a>
+                            </li>
+                            
+                            <li class="nav_item">
+                                <a href="/admin/course" class="nav_link current_page">Course</a>
+                            </li>
+
+                            <li class="nav_item">
+                                <a href="/admin/student" class="nav_link">Student</a>
+                            </li>
+                        </ul>
+
+                        <div class="nav_user">
+                            <div class="user_info">
+                                <span>User: {{user}}</span>
+                            </div>
+                        
+                            <a href="/api/logout" class="logout_btn">
+                                <span class="iconify" data-icon="carbon:logout"></span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        {{else}}
+        {{!-- if user is student --}}
+
+        {{/if}}
+
+    {{/if}}
 
     <div class="main">
         {{{body}}}

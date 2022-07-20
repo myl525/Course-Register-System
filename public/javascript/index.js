@@ -1,9 +1,18 @@
 document.addEventListener('DOMContentLoaded', main);
 
 function main(evt) {
-    //close user modal
-    const userModalCloseBtn = document.getElementById('userModalCloseBtn');
-    userModalCloseBtn.addEventListener('click', closeUserModal);
+    //open auth modal
+    const authModalOpenBtn = document.getElementById('authModalOpenBtn');
+    authModalOpenBtn.addEventListener('click', openAuthModal);
+
+    //close auth modal
+    const authModalCloseBtn = document.getElementById('authModalCloseBtn');
+    authModalCloseBtn.addEventListener('click', closeAuthModal);
+    window.onclick = function(evt) {
+        if (evt.target === document.getElementById('authModal')) {
+            closeAuthModal();
+        }
+    }
 
     //handle switch between register and login form
     const loginLink = document.getElementById('loginLink');
@@ -11,62 +20,108 @@ function main(evt) {
     loginLink.addEventListener('click', handleLoginLink);
     registerLink.addEventListener('click', handleRegisterLink);
 
-    //TODO: login and register
+    //handle login and register
     const logInBtn = document.getElementById('logInBtn');
     logInBtn.addEventListener('click', handleLogin);
     const registerBtn = document.getElementById('registerBtn');
     registerBtn.addEventListener('click', handleRegister);
 }
 
-//close user modal
-function closeUserModal(evt) {
-    const userModal = document.getElementById('userModal');
-    console.log('clicked');
-    userModal.classList.add('element_notdisplay');
+/**functions */
+//open auth Modal
+function openAuthModal(evt) {
+    const authModal = document.getElementById('authModal');
+    authModal.classList.remove('element_notdisplay');
+}
+
+//close auth modal
+function closeAuthModal(evt) {
+    const authModal = document.getElementById('authModal');
+    authModal.classList.add('element_notdisplay');
+
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    //reset
+    if(loginForm.classList.contains('element_notdisplay')) {
+        registerForm.classList.add('element_notdisplay');
+        loginForm.classList.remove('element_notdisplay');
+    }
+    resetModal();
+}
+
+//reset modal
+function resetModal() {
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    //clear input fields
+    loginForm.reset();
+    registerForm.reset();
+    //clear error message
+    document.querySelectorAll('.error_msg').forEach((msg) => {
+        if(!msg.classList.contains('element_notdisplay')) {
+            msg.classList.add('element_notdisplay');
+        }
+    })
+    //clear input styling
+    document.querySelectorAll('input').forEach((i) => {
+        if(i.classList.contains('error_input')) {
+            i.classList.remove('error_input');
+        }
+    })
 }
 
 //open login form
 function handleLoginLink(evt) {
+    evt.preventDefault();
+
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
 
     registerForm.classList.add('element_notdisplay');
     loginForm.classList.remove('element_notdisplay');
+    resetModal();
 }
 
 //open register form
 function handleRegisterLink(evt) {
+    evt.preventDefault();
+
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
 
     loginForm.classList.add('element_notdisplay');
     registerForm.classList.remove('element_notdisplay');
-}
-
-//handle focus
-function handleFocus(evt) {
-    evt.style.border = 'none';
+    resetModal();
 }
 
 //login
 async function handleLogin(evt) {
     evt.preventDefault();
+
     const username = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
+    const identity = document.getElementById('identity').value;
+    const errorMsg = document.getElementById('loginErrorMsg');
 
     const res = await fetch('api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: 'username='+username+'&password='+password
+        body: 'username='+username+'&password='+password+'&identity='+identity
     })
 
     const data = await res.json();
     
-    //TODO form validation
     if(data.loggedIn) {
-        window.location.reload();
+        const url = '/' + data.identity + '/course';
+        location.href = url;
+    }else {
+        document.getElementById('loginUsername').classList.add('error_input');
+        document.getElementById('loginPassword').classList.add('error_input');
+        if(errorMsg.classList.contains('element_notdisplay')) {
+            errorMsg.classList.remove('element_notdisplay');
+        }
     }
 }
 
@@ -76,6 +131,7 @@ async function handleRegister(evt) {
     const username = document.getElementById('registerUsername').value;
     const name = document.getElementById('name').value;
     const password = document.getElementById('registerPassword').value;
+    const errorMsg = document.getElementById('registerErrorMsg');
 
     const res = await fetch('api/register', {
         method: 'POST',
@@ -87,8 +143,12 @@ async function handleRegister(evt) {
 
     const data = await res.json();
     
-    //TODO form validation
     if(data.loggedIn) {
         window.location.reload();
+    }else {
+        document.getElementById('registerUsername').classList.add('error_input');
+        if(errorMsg.classList.contains('element_notdisplay')) {
+            errorMsg.classList.remove('element_notdisplay');
+        }
     }
 }
