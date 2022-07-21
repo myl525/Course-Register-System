@@ -1,16 +1,40 @@
 <link rel="stylesheet" href="/stylesheet/admin.css">
+<script src="/javascript/admin/course.js"></script>
 
 <div class="courses_section">
     <div class="course_container">
         <div class="search_area">
             <div class="search_bar">
-                <span class="iconify" data-icon="ant-design:search-outlined"></span>
-                <div>
-                    <input class="search_input" name="course_id" type="text" placeholder="Search course by course id">
+                <div class="input_wrapper">
+                    <input id="courseSearchInput" class="search_input" name="courseSearchStr" type="text" placeholder="Search course by course id or course name">
                     <div class="expand_underline"></div>
                 </div>
-                
+                <button id="courseSearchBtn"><span class="iconify" data-icon="ant-design:search-outlined"></span></button>
             </div>
         </div>
+
+        <div class="filter_area">
+        {{!-- add filter function --}}
+        </div>
+
+        <div class="table_container">
+            <table id="courseTable" class="course_table">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Course ID</th>
+                        <th>Course Section</th>
+                        <th>Maximum Students</th>
+                        <th>Current Student</th>
+                        <th>Instructor</th>
+                        <th>Location</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="courseTableBody" class="course_table__body">
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>

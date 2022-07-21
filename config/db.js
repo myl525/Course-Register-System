@@ -18,12 +18,12 @@ mongoose.connect(dbconf);
 
 // schemas
 const Course = new mongoose.Schema({
-    name: String,
-    id: String,
-    section: Number,
-    capacity: Number,
-    currentNumberOfStudent: Number,
-    students: [String],
+    courseName: String,
+    courseId: String,
+    courseSection: String,
+    maximumStudents: Number,
+    currentStudents: Number,
+    listOfStudents: [String],
     instructor: String,
     location: String
 })
