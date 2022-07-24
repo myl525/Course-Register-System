@@ -17,7 +17,13 @@
         {{!-- add filter function --}}
         </div>
 
-        <div class="table_container">
+        <div class="add_course_container">
+            <button id="addCourseBtn">
+                <span>+ add new course</span> 
+            </button>
+        </div>
+
+        <div id="tableContainer" class="table_container">
             <table id="courseTable" class="course_table">
                 <thead>
                     <tr>
@@ -36,5 +42,53 @@
             </table>
         </div>
 
+    </div>
+</div>
+
+<div id="addCourseModal" class="modal element_notdisplay">
+    <div id="addCourseModalContainer" class="modal_container">
+        <span id="addCourseErrorMsg" class="add_course_error_msg element_notdisplay">Course Already Exists</span>
+        <form id="addCourseForm" class="add_course_form">
+            <label class="add_course_lg">
+                <span class="add_course_label">Course Name</span>
+                <input name="courseName" class="add_course_input" type="text" placeholder="PAC II">
+            </label>
+            <label class="add_course_md">
+                <span class="add_course_label">Course ID</span>
+                <input name="courseId" class="add_course_input" type="text" placeholder="CSCI-GA.1144">
+            </label>
+            <label class="add_course_sm">
+                <span class="add_course_label">Course Section</span>
+                <input name="courseSection" class="add_course_input" type="text" placeholder="1">
+            </label>
+            <label class="add_course_sm">
+                <span class="add_course_label">Maximum Students</span>
+                <input name="maximumStudents" class="add_course_input" type="number" placeholder="10">
+            </label>
+            <label class="add_course_md add_course_form_last_line">
+                <span class="add_course_label">Instructor</span>
+                <input name="instructor" class="add_course_input" type="text" placeholder="Mohamed Zahran">
+            </label>
+            <label class="add_course_md add_course_form_last_line">
+                <span class="add_course_label">Location</span>
+                <input name="location" class="add_course_input" type="text" placeholder="CIWW 312">
+            </label>
+
+            <button id="addCourseConfirmBtn" class="add_course_btn">
+                Confirm
+            </button>
+            <button id="addCourseCancelBtn" class="add_course_btn">
+                Cancel
+            </button>
+        </form>
+
+        <div id="addCourseSuccessMsg" class="add_course_form_msg element_notdisplay">
+            <span class="iconify" data-icon="ep:success-filled"></span>
+            <span>Course has been successfully added</span>
+        </div>
+
+        <button id="courseModalCloseBtn" class="modal_close_btn">
+            <span class="iconify" data-icon="carbon:close"></span>
+        </button>
     </div>
 </div>

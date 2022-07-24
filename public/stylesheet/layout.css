@@ -131,6 +131,49 @@ nav li {
     transition: opacity 0.25s;
 }
 
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal_container {
+    position: relative;
+    width: 40%;
+    height: 55%;
+    background-color: white;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    box-shadow: 0 0 0.5rem white;
+}
+
+.modal_close_btn {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    color: lightgray;
+}
+
+.modal_close_btn:hover {
+    cursor: pointer;
+    color: black;
+}
+
 /* .nav_dropdown {
     position: relative;
 }

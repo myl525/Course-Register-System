@@ -28,7 +28,36 @@ const searchCourse = async (req, res) => {
     }
 }
 
+const addCourse = async (req, res) => {
+    //get data
+    const courseName = req.body.courseName;
+    const courseId = req.body.courseId;
+    const courseSection = req.body.courseSection;
+    const maximumStudents = req.body.maximumStudents;
+    const instructor = req.body.instructor;
+    const location = req.body.location;
+    //add course to db
+    const exist = await Course.findOne({courseName: courseName, courseId: courseId, courseSection: courseSection});
+    if(exist) {
+        res.json({'alreadyExists': true});
+    }else {
+        const newCourse = new Course({
+            courseName: courseName,
+            courseId: courseId,
+            courseSection: courseSection,
+            maximumStudents: maximumStudents,
+            currentStudents: 0,
+            listOfStudents: [],
+            instructor: instructor,
+            location: location
+        });
+        await newCourse.save();
+        res.json({'alreadyExists': false});
+    }
+}
+
 module.exports = {
     getFilter,
-    searchCourse
+    searchCourse,
+    addCourse
 }
