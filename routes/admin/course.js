@@ -14,4 +14,6 @@ router.get('/api/admin/course', courseFunctions.searchCourse);
 
 router.post('/api/admin/addCourse', courseFunctions.addCourse);
 
+router.post('/api/admin/deleteCourse', courseFunctions.deleteCourse);
+
 module.exports = router;

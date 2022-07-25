@@ -56,8 +56,19 @@ const addCourse = async (req, res) => {
     }
 }
 
+const deleteCourse = async (req, res) => {
+    //get data
+    const courseId = req.body.courseId;
+    const courseSection = req.body.courseSection;
+    const filter = {courseId: courseId, courseSection: courseSection};
+    const result = await Course.deleteOne(filter);
+    res.json({delete: result});
+}
+
+
 module.exports = {
     getFilter,
     searchCourse,
-    addCourse
+    addCourse,
+    deleteCourse
 }

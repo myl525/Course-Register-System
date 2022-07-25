@@ -8,14 +8,26 @@ function main(evt) {
     const courseSearchBtn = document.getElementById('courseSearchBtn');
     courseSearchBtn.addEventListener('click', handleSearch);
 
+    //close option menu if click outside
+    window.onclick = (evt) => {
+        if(!(evt.target.classList.contains('course_option_container') || evt.target.classList.contains('course_option_cell'))) {
+            document.querySelectorAll('.course_option_container').forEach((option) => {
+                option.parentNode.classList.remove('active');
+                option.remove();
+            })
+        }
+    }
+
     //open add course modal
     const addCourseBtn = document.getElementById('addCourseBtn');
     addCourseBtn.addEventListener('click', openAddCourseModal); 
+    
     //close add course modal
     const courseModalCloseBtn = document.getElementById('courseModalCloseBtn');
     courseModalCloseBtn.addEventListener('click', closeAddCourseModal);
     const addCourseCancelBtn = document.getElementById('addCourseCancelBtn');
     addCourseCancelBtn.addEventListener('click', closeAddCourseModal);
+    
     //handle add course
     const addCourseConfirmBtn = document.getElementById('addCourseConfirmBtn');
     addCourseConfirmBtn.addEventListener('click', addCourse);
@@ -26,6 +38,8 @@ function main(evt) {
 async function loadCourses(pageNumber=1) {
     clearTable();
     //get courses data
+    let counter = 0;
+    const numberOfCourse = document.getElementById('numberOfCourse');
     const courseSearchStr = '?courseSearchStr=' + document.getElementById('courseSearchInput').value;
     let url = '../api/admin/course'+courseSearchStr;
     const data = await fetch(url);
@@ -33,7 +47,10 @@ async function loadCourses(pageNumber=1) {
     
     courses.forEach((course) => {
         printCourse(course);
+        counter++;
     })
+
+    numberOfCourse.textContent = counter + ' results';
 }
 
 function handleSearch(evt) {
@@ -53,11 +70,13 @@ function printCourse(course) {
     })
     //add options cell
     const optionCell = document.createElement('td');
+    optionCell.className = 'course_option_cell';
+    optionCell.id = course.courseId + '/' + course.courseSection;
     optionCell.textContent = '...';
-    optionCell.id = 'option'+course.courseId+course.courseSection;
-    optionCell.className = 'courseOption';
+    optionCell.addEventListener('click', openCourseOptions);
+    
     cells.push(optionCell);
-
+    //append elements
     row.append(...cells);
     courseTableBody.appendChild(row);
 }
@@ -72,6 +91,71 @@ function clearTable() {
     newTableBody.id = 'courseTableBody';
     newTableBody.className = 'course_table_body';
     courseTable.appendChild(newTableBody);
+}
+
+//course options
+function openCourseOptions(evt) {
+    const current = evt.target;
+    //close own options
+    const inactive = current.classList.toggle('active');
+    if(inactive) {
+        //close option for other courses
+        const ownOption = current.querySelector('.course_option_container');
+        const allOptions = document.querySelectorAll('.course_option_container');
+        allOptions.forEach((option) => {
+            if(option !== ownOption) {
+                option.parentNode.classList.remove('active');
+                option.remove();
+            }
+        })
+        //create options element
+        const courseOptionContainer = document.createElement('ul');
+        courseOptionContainer.className = 'course_option_container';
+        const options = ['edit', 'delete'];
+        options.forEach((option) => {
+            const ele = document.createElement('li');
+            ele.textContent = option;
+            ele.id = option + '/' + evt.target.id;
+            ele.className = 'course_option';
+            if(option === 'edit') {
+                
+            }else {
+                ele.addEventListener('click', deleteCourse);
+            }
+
+            courseOptionContainer.appendChild(ele);
+        })
+        current.appendChild(courseOptionContainer);
+    }else {
+        current.querySelector('.course_option_container').remove();
+    }
+}
+
+//edit option
+
+//delete option
+async function deleteCourse(evt) {
+    evt.stopPropagation();
+
+    const str = evt.target.id.split('/');
+    let body = 'courseId=' + str[1] + '&courseSection=' + str[2];
+    
+    const res = await fetch('../api/admin/deleteCourse', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: body
+    });
+
+    const data = await res.json();
+
+    if(data.delete) {
+        evt.target.parentNode.parentNode.parentNode.style.color = 'red';
+        setTimeout(() => {
+            location.reload();
+        }, "1500")
+    }
 }
 
 /**add course functions */
@@ -121,7 +205,7 @@ async function addCourse(evt) {
     });
 
     const data = await res.json();
-    console.log(data);
+
     if(data.alreadyExists) {
         //course already exists
         const errorMsg = document.getElementById('addCourseErrorMsg');
