@@ -36,11 +36,13 @@ const index = require('./routes/index/index');
 const user = require('./routes/user');
 const adminCourse = require('./routes/admin/course');
 const adminStudent = require('./routes/admin/student');
+const studentCourse = require('./routes/student/course');
 //
 app.use('/', index);
 app.use('/', user);
 app.use('/', adminCourse);
 app.use('/', adminStudent);
+app.use('/', studentCourse);
 
 
 app.listen(3000);

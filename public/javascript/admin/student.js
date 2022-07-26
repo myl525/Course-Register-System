@@ -159,7 +159,6 @@ async function handleRegisterCourse(evt) {
         body += str;
     })
     body = body.slice(0, -1);
-    console.log(body);
     //send data to the db
     const res = await fetch('../api/admin/student/registerCourse', {
         method: 'POST',

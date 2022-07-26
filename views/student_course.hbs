@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="/stylesheet/student.css">
+<script src="/javascript/student/course.js"></script>
+
+<div class="courses_section">
+    <div class="course_container">
+        <div class="search_area">
+            <div class="search_bar">
+                <div class="input_wrapper">
+                    <input id="courseSearchInput" class="search_input" name="courseSearchStr" type="text" placeholder="Search course by course id or course name">
+                    <div class="expand_underline"></div>
+                </div>
+                <button id="courseSearchBtn"><span class="iconify" data-icon="ant-design:search-outlined"></span></button>
+            </div>
+        </div>
+
+        <div id="tableContainer" class="table_container">
+            <table id="courseTable" class="course_table">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Course ID</th>
+                        <th>Course Section</th>
+                        <th>Maximum Students</th>
+                        <th>Current Student</th>
+                        <th>Instructor</th>
+                        <th>Location</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="courseTableBody" class="course_table__body">
+                </tbody>
+            </table>
+            <div class="number_of_course_container">
+                <span id="numberOfCourse"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="registerCourseModal" class="modal element_notdisplay">
+    <div id="registerCourseModalContainer" class="modal_container">
+        <span id="registerCourseErrorMsg" class="register_course_error_msg element_notdisplay">Repeat Registeration</span>
+        <form id="registerCourseForm" class="register_course_form">
+            <label class="register_course_lg">
+                <span class="register_course_label">Course Name</span>
+                <input disabled name="courseName" class="register_course_input" type="text" placeholder="PAC II">
+            </label>
+            <label class="register_course_md">
+                <span class="register_course_label">Course ID</span>
+                <input disabled name="courseId" class="register_course_input" type="text" placeholder="CSCI-GA.1144">
+            </label>
+            <label class="register_course_sm">
+                <span class="register_course_label">Course Section</span>
+                <input disabled name="courseSection" class="register_course_input" type="text" placeholder="1">
+            </label>
+            <label class="register_course_sm">
+                <span class="register_course_label">Maximum Students</span>
+                <input disabled name="maximumStudents" class="register_course_input" type="number" placeholder="10">
+            </label>
+            <label class="register_course_md register_course_form_last_line">
+                <span class="register_course_label">Instructor</span>
+                <input disabled name="instructor" class="register_course_input" type="text" placeholder="Mohamed Zahran">
+            </label>
+            <label class="register_course_md register_course_form_last_line">
+                <span class="register_course_label">Location</span>
+                <input disabled name="location" class="register_course_input" type="text" placeholder="CIWW 312">
+            </label>
+
+            <button id="registerCourseConfirmBtn" class="register_course_btn">
+                Register
+            </button>
+            <button id="registerCourseCancelBtn" class="register_course_btn">
+                Cancel
+            </button>
+        </form>
+
+        <div id="registerCourseSuccessMsg" class="register_course_form_msg element_notdisplay">
+            <span class="iconify" data-icon="ep:success-filled"></span>
+            <span>Course has been successfully registered</span>
+        </div>
+
+        <button id="registerCourseModalCloseBtn" class="modal_close_btn">
+            <span class="iconify" data-icon="carbon:close"></span>
+        </button>
+    </div>
+</div>

@@ -57,7 +57,7 @@ async function loadCourses() {
     let counter = 0;
     const numberOfCourse = document.getElementById('numberOfCourse');
     const courseSearchStr = '?courseSearchStr=' + document.getElementById('courseSearchInput').value;
-    let url = '../api/admin/course'+courseSearchStr;
+    let url = '../api/course'+courseSearchStr;
     const data = await fetch(url);
     const courses = await data.json();
     

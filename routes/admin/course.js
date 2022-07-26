@@ -10,7 +10,7 @@ router.get('/admin/course', (req, res) => {
     }
 })
 
-router.get('/api/admin/course', courseFunctions.searchCourse);
+router.get('/api/course', courseFunctions.searchCourse);
 
 router.post('/api/admin/addCourse', courseFunctions.addCourse);
 

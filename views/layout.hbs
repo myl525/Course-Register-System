@@ -62,9 +62,36 @@
             </header>
         {{else}}
         {{!-- if user is student --}}
+            <header>
+                <nav>
+                    <div class="container">
+                        <ul class="nav_items">
+                            <li class="nav_item">
+                                <a href="/student/home" class="nav_logo">CRS</a>
+                            </li>
+                            
+                            <li class="nav_item">
+                                <a href="/student/home" id="studentHomePage" class="nav_link current_page">Home</a>
+                            </li>
 
+                            <li class="nav_item">
+                                <a href="/student/course" id="studentCoursePage" class="nav_link">Course</a>
+                            </li>
+                        </ul>
+
+                        <div class="nav_user">
+                            <div class="user_info">
+                                <span>User: {{user}}</span>
+                            </div>
+                        
+                            <a href="/api/logout" class="logout_btn">
+                                <span class="iconify" data-icon="carbon:logout"></span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </header>
         {{/if}}
-
     {{/if}}
 
     <div class="main">
