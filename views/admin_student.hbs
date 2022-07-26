@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="/stylesheet/admin.css">
+<script src="/javascript/admin/student.js"></script>
+
+<div class="students_section">
+    <div class="student_container">
+        <div class="search_area">
+            <div class="search_bar">
+                <div class="input_wrapper">
+                    <input id="studentSearchInput" class="search_input" name="courseSearchStr" type="text" placeholder="Search student by name or username">
+                    <div class="expand_underline"></div>
+                </div>
+                <button id="studentSearchBtn"><span class="iconify" data-icon="ant-design:search-outlined"></span></button>
+            </div>
+        </div>
+
+        <div class="table_container">
+            <table id="studentTable" class="student_table">
+                <thead>
+                    <tr>
+                        <th>Student Username</th>
+                        <th>Student Name</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody" class="student_table__body"></tbody>
+            </table>
+
+            <div class="number_of_student_container">
+                <span id="numberOfStudent"></span>
+            </div>
+        </div>
+        <div id="studentCourseTableContainer" class="table_container element_notdisplay">
+
+            <div id="tableDivider" class="table_divider"></div>
+
+            <table id="studentCourseTable" class="course_table">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Course ID</th>
+                        <th>Course Section</th>
+                        <th>Maximum Students</th>
+                        <th>Current Student</th>
+                        <th>Instructor</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody id="studentCourseTableBody" class="student_course_table__body"></tbody>
+            </table>
+            <div id="registerCourseContainer" class="register_course_container">
+                <button id="registerCourseBtn">
+                    <span>+ register new course</span> 
+                </button>
+            </div>  
+        </div>
+    </div>
+</div>
+
+<div id="registerCourseModal" class="modal element_notdisplay">
+    <div id="registerCourseModalContainer" class="modal_container">
+        <span id="registerCourseErrorMsg" class="register_course_error_msg element_notdisplay">Course Does not Exist</span>
+        <form id="registerCourseForm" class="register_course_form">
+            <label class="register_course_lg">
+                <span class="register_course_label">Course Name</span>
+                <input name="courseName" class="register_course_input" type="text" placeholder="PAC II">
+            </label>
+            <label class="register_course_md">
+                <span class="register_course_label">Course ID</span>
+                <input name="courseId" class="register_course_input" type="text" placeholder="CSCI-GA.1144">
+            </label>
+            <label class="register_course_sm">
+                <span class="register_course_label">Course Section</span>
+                <input name="courseSection" class="register_course_input" type="text" placeholder="1">
+            </label>
+            
+            <button id="registerCourseConfirmBtn" class="register_course_btn">
+                Confirm
+            </button>
+            <button id="registerCourseCancelBtn" class="register_course_btn">
+                Cancel
+            </button>
+        </form>
+
+        <div id="registerCourseSuccessMsg" class="register_course_form_msg element_notdisplay">
+            <span class="iconify" data-icon="ep:success-filled"></span>
+            <span>Course has been successfully registered</span>
+        </div>
+
+        <button id="registerCourseModalCloseBtn" class="modal_close_btn">
+            <span class="iconify" data-icon="carbon:close"></span>
+        </button>
+    </div>
+</div>

@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', main);
 
 function main(evt) {
+    const adminCoursePage = document.getElementById('adminCoursePage');
+    const adminStudentPage = document.getElementById('adminStudentPage');
+    if(!adminCoursePage.classList.contains('current_page')) {
+        adminCoursePage.classList.add('current_page');
+        adminStudentPage.classList.remove('current_page');
+    }
+
     //load all courses
     loadCourses();
     
@@ -8,6 +15,7 @@ function main(evt) {
     const courseSearchBtn = document.getElementById('courseSearchBtn');
     courseSearchBtn.addEventListener('click', handleSearch);
 
+    /**course options */
     //close option menu if click outside
     window.onclick = (evt) => {
         if(!(evt.target.classList.contains('course_option_container') || evt.target.classList.contains('course_option_cell'))) {
@@ -18,13 +26,21 @@ function main(evt) {
         }
     }
 
+    //close edit modal
+    document.getElementById('courseOptionModalCloseBtn').addEventListener('click', closeEditCourseModal);
+    document.getElementById('editCourseCancelBtn').addEventListener('click', closeEditCourseModal);
+
+    //handle edit course
+    document.getElementById('editCourseConfirmBtn').addEventListener('click', editCourse);
+
+    /**add course */
     //open add course modal
     const addCourseBtn = document.getElementById('addCourseBtn');
     addCourseBtn.addEventListener('click', openAddCourseModal); 
     
     //close add course modal
-    const courseModalCloseBtn = document.getElementById('courseModalCloseBtn');
-    courseModalCloseBtn.addEventListener('click', closeAddCourseModal);
+    const addCourseModalCloseBtn = document.getElementById('addCourseModalCloseBtn');
+    addCourseModalCloseBtn.addEventListener('click', closeAddCourseModal);
     const addCourseCancelBtn = document.getElementById('addCourseCancelBtn');
     addCourseCancelBtn.addEventListener('click', closeAddCourseModal);
     
@@ -35,7 +51,7 @@ function main(evt) {
 }
 
 /**functions */
-async function loadCourses(pageNumber=1) {
+async function loadCourses() {
     clearTable();
     //get courses data
     let counter = 0;
@@ -71,7 +87,13 @@ function printCourse(course) {
     //add options cell
     const optionCell = document.createElement('td');
     optionCell.className = 'course_option_cell';
-    optionCell.id = course.courseId + '/' + course.courseSection;
+    let optionCellIdStr = '';
+    columns.forEach((column) => { 
+        if(column !== 'currentStudents')
+        optionCellIdStr += (course[column] + '/'); 
+    })
+
+    optionCell.id = optionCellIdStr.slice(0,-1);
     optionCell.textContent = '...';
     optionCell.addEventListener('click', openCourseOptions);
     
@@ -89,7 +111,7 @@ function clearTable() {
     //append new table body
     const newTableBody = document.createElement('tbody');
     newTableBody.id = 'courseTableBody';
-    newTableBody.className = 'course_table_body';
+    newTableBody.className = 'course_table__body';
     courseTable.appendChild(newTableBody);
 }
 
@@ -118,7 +140,7 @@ function openCourseOptions(evt) {
             ele.id = option + '/' + evt.target.id;
             ele.className = 'course_option';
             if(option === 'edit') {
-                
+                ele.addEventListener('click', openEditCourseModal);
             }else {
                 ele.addEventListener('click', deleteCourse);
             }
@@ -132,14 +154,68 @@ function openCourseOptions(evt) {
 }
 
 //edit option
+function openEditCourseModal(evt) { 
+    evt.stopPropagation();
+    document.getElementById('courseOptionModal').classList.remove('element_notdisplay');
+    //adjust placeholder
+    const placeHolderStr = evt.target.id.split('/').slice(1);
+    const editCourseInputs = document.querySelectorAll('.edit_course_input');
+    editCourseInputs.forEach((input, i) => {
+        input.placeholder = placeHolderStr[i];
+    })
+}
+
+async function editCourse(evt) {
+    evt.preventDefault();
+    
+    //create body string
+    let body = '';
+    let updates = '';
+    const editCourseInputs = document.querySelectorAll('.edit_course_input');
+    body += 'courseId='+ editCourseInputs[1].placeholder + '&courseSection=' + editCourseInputs[2].placeholder;
+    editCourseInputs.forEach((input) => {
+        if(input.value) {
+            updates += '&' + input.name + '=' + input.value;
+        }
+    })
+    
+    //send data to the db
+    const res = await fetch('../api/admin/editCourse', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: body + updates
+    });
+
+    const data = await res.json();
+    if(data.update) {
+        //add course to db successfully
+        const editCourseForm = document.getElementById('editCourseForm');
+        const editCourseSuccessMsg = document.getElementById('editCourseSuccessMsg');
+
+        editCourseForm.classList.add('element_notdisplay');
+        editCourseSuccessMsg.classList.remove('element_notdisplay');
+
+        setTimeout(() => {
+            location.reload();
+        }, "1500")
+    }
+}
+
+function closeEditCourseModal(evt) {
+    location.reload();
+}
 
 //delete option
 async function deleteCourse(evt) {
     evt.stopPropagation();
 
     const str = evt.target.id.split('/');
-    let body = 'courseId=' + str[1] + '&courseSection=' + str[2];
+    let body = 'courseId=' + str[2] + '&courseSection=' + str[3];
     
+    console.log(body);
+
     const res = await fetch('../api/admin/deleteCourse', {
         method: 'POST',
         headers: {
@@ -151,7 +227,11 @@ async function deleteCourse(evt) {
     const data = await res.json();
 
     if(data.delete) {
-        evt.target.parentNode.parentNode.parentNode.style.color = 'red';
+        //delete successfully
+        document.getElementById('courseOptionModal').classList.remove('element_notdisplay');
+        document.getElementById('editCourseForm').classList.add('element_notdisplay');
+        document.getElementById('deleteCourseSuccessMsg').classList.remove('element_notdisplay');
+
         setTimeout(() => {
             location.reload();
         }, "1500")
@@ -173,13 +253,6 @@ function openAddCourseModal(evt) {
 
 //close add course modal
 function closeAddCourseModal(evt) {
-    // evt.preventDefault();
-
-    // const addCourseModal = document.getElementById('addCourseModal');
-    // const addCourseForm = document.getElementById('addCourseForm');
-
-    // addCourseForm.reset();
-    // addCourseModal.classList.add('element_notdisplay');
     location.reload();
 }
 

@@ -90,7 +90,60 @@
             <span>Course has been successfully added</span>
         </div>
 
-        <button id="courseModalCloseBtn" class="modal_close_btn">
+        <button id="addCourseModalCloseBtn" class="modal_close_btn">
+            <span class="iconify" data-icon="carbon:close"></span>
+        </button>
+    </div>
+</div>
+
+<div id="courseOptionModal" class="modal element_notdisplay">
+    <div id="courseOptionModalContainer" class="modal_container">
+        {{!-- <span id="addCourseErrorMsg" class="add_course_error_msg element_notdisplay">Course Already Exists</span> --}}
+        <form id="editCourseForm" class="edit_course_form">
+            <label class="edit_course_lg">
+                <span class="edit_course_label">Course Name</span>
+                <input name="courseName" class="edit_course_input" type="text" placeholder="PAC II">
+            </label>
+            <label class="edit_course_md">
+                <span class="edit_course_label">Course ID</span>
+                <input disabled name="courseId" class="edit_course_input" type="text" placeholder="CSCI-GA.1144">
+            </label>
+            <label class="edit_course_sm">
+                <span class="edit_course_label">Course Section</span>
+                <input disabled name="courseSection" class="edit_course_input" type="text" placeholder="1">
+            </label>
+            <label class="edit_course_sm">
+                <span class="edit_course_label">Maximum Students</span>
+                <input name="maximumStudents" class="edit_course_input" type="number" placeholder="10">
+            </label>
+            <label class="edit_course_md edit_course_form_last_line">
+                <span class="edit_course_label">Instructor</span>
+                <input name="instructor" class="edit_course_input" type="text" placeholder="Mohamed Zahran">
+            </label>
+            <label class="edit_course_md edit_course_form_last_line">
+                <span class="edit_course_label">Location</span>
+                <input name="location" class="edit_course_input" type="text" placeholder="CIWW 312">
+            </label>
+
+            <button id="editCourseConfirmBtn" class="edit_course_btn">
+                Confirm
+            </button>
+            <button id="editCourseCancelBtn" class="edit_course_btn">
+                Cancel
+            </button>
+        </form>
+
+        <div id="editCourseSuccessMsg" class="edit_course_form_msg element_notdisplay">
+            <span class="iconify" data-icon="ep:success-filled"></span>
+            <span>Course has been successfully edited</span>
+        </div>
+
+        <div id="deleteCourseSuccessMsg" class="delete_course_form_msg element_notdisplay">
+            <span class="iconify" data-icon="ep:success-filled"></span>
+            <span>Course has been successfully deleted</span>
+        </div>
+
+        <button id="courseOptionModalCloseBtn" class="modal_close_btn">
             <span class="iconify" data-icon="carbon:close"></span>
         </button>
     </div>

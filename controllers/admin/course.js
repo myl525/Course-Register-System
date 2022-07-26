@@ -56,6 +56,23 @@ const addCourse = async (req, res) => {
     }
 }
 
+const editCourse = async (req, res) => {
+    //get data
+    const filter = {courseId: req.body.courseId, courseSection: req.body.courseSection};
+    const columns = ['courseName', 'maximumStudents', 'instructor', 'location'];
+    let update = {};
+    columns.forEach((col) => {
+        if(req.body[col]) {
+            update[col] = req.body[col];
+        }
+    })
+
+    const result = await Course.findOneAndUpdate(filter, update, {new: true});
+    if(result) {
+        res.json({update: true});
+    }
+}
+
 const deleteCourse = async (req, res) => {
     //get data
     const courseId = req.body.courseId;
@@ -70,5 +87,6 @@ module.exports = {
     getFilter,
     searchCourse,
     addCourse,
+    editCourse,
     deleteCourse
 }
