@@ -37,7 +37,7 @@ const Student = new mongoose.Schema({
     username: String,
     password: String,
     name: String,
-    courses: [Course]
+    courses: []
 });
 
 Admin.plugin(passportLocalMongoose);

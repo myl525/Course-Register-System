@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="/stylesheet/student.css">
+<script src="/javascript/student/home.js"></script>
+
+<div class="courses_section">
+    <div class="course_container">
+        <h2 class="">
+            My Courses
+        </h2>
+        <div id="tableContainer" class="table_container">
+            <table id="courseTable" class="course_table">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Course ID</th>
+                        <th>Course Section</th>
+                        <th>Maximum Students</th>
+                        <th>Current Student</th>
+                        <th>Instructor</th>
+                        <th>Location</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="courseTableBody" class="course_table__body">
+                </tbody>
+            </table>
+            <div class="number_of_course_container">
+                <span id="numberOfCourse"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="withdrawCourseModal" class="modal element_notdisplay">
+    <div id="withdrawCourseModalContainer" class="modal_container">
+        <span id="withdrawCourseErrorMsg" class="withdraw_course_error_msg element_notdisplay">Repeat withdrawation</span>
+        <form id="withdrawCourseForm" class="withdraw_course_form">
+            <label class="withdraw_course_lg">
+                <span class="withdraw_course_label">Course Name</span>
+                <input disabled name="courseName" class="withdraw_course_input" type="text" placeholder="PAC II">
+            </label>
+            <label class="withdraw_course_md">
+                <span class="withdraw_course_label">Course ID</span>
+                <input disabled name="courseId" class="withdraw_course_input" type="text" placeholder="CSCI-GA.1144">
+            </label>
+            <label class="withdraw_course_sm">
+                <span class="withdraw_course_label">Course Section</span>
+                <input disabled name="courseSection" class="withdraw_course_input" type="text" placeholder="1">
+            </label>
+            <label class="withdraw_course_sm">
+                <span class="withdraw_course_label">Maximum Students</span>
+                <input disabled name="maximumStudents" class="withdraw_course_input" type="number" placeholder="10">
+            </label>
+            <label class="withdraw_course_md withdraw_course_form_last_line">
+                <span class="withdraw_course_label">Instructor</span>
+                <input disabled name="instructor" class="withdraw_course_input" type="text" placeholder="Mohamed Zahran">
+            </label>
+            <label class="withdraw_course_md withdraw_course_form_last_line">
+                <span class="withdraw_course_label">Location</span>
+                <input disabled name="location" class="withdraw_course_input" type="text" placeholder="CIWW 312">
+            </label>
+
+            <button id="withdrawCourseConfirmBtn" class="withdraw_course_btn">
+                withdraw
+            </button>
+            <button id="withdrawCourseCancelBtn" class="withdraw_course_btn">
+                Cancel
+            </button>
+        </form>
+
+        <div id="withdrawCourseSuccessMsg" class="withdraw_course_form_msg element_notdisplay">
+            <span class="iconify" data-icon="ep:success-filled"></span>
+            <span>Course has been successfully withdrawed</span>
+        </div>
+
+        <button id="withdrawCourseModalCloseBtn" class="modal_close_btn">
+            <span class="iconify" data-icon="carbon:close"></span>
+        </button>
+    </div>
+</div>

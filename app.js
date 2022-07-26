@@ -37,12 +37,14 @@ const user = require('./routes/user');
 const adminCourse = require('./routes/admin/course');
 const adminStudent = require('./routes/admin/student');
 const studentCourse = require('./routes/student/course');
+const studentHome = require('./routes/student/home');
 //
 app.use('/', index);
 app.use('/', user);
 app.use('/', adminCourse);
 app.use('/', adminStudent);
 app.use('/', studentCourse);
+app.use('/', studentHome);
 
 
 app.listen(3000);

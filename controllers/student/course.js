@@ -17,11 +17,11 @@ const registerCourse = async (req, res) => {
         if(course.listOfStudents.includes(username)) {
             res.json({alreadyRegistered: true});
         }else {
-            student.courses.push(course);
-            await student.save();
             course.listOfStudents.push(username);
             course.currentStudents += 1;
             await course.save();
+            student.courses.push(filter);
+            await student.save();
             res.json({courseRegister: true});
         }
     }else { 

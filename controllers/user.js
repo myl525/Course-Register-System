@@ -9,7 +9,7 @@ const login = (req, res, next) => {
         passport.authenticate('adminLocal', (err, user) => {
             if(user) {
                 req.logIn(user, (err) => {
-                    res.send({loggedIn: true, user: req.user.username, identity: 'admin'});
+                    res.send({loggedIn: true, user:req.user.username, identity: 'admin'});
                 });
             }else {
                 res.send({loggedIn: false, msg: "Your username or password is incorrect"});
@@ -19,7 +19,7 @@ const login = (req, res, next) => {
         passport.authenticate('studentLocal', (err, user) => {
             if(user) {
                 req.logIn(user, (err) => {
-                    res.send({loggedIn: true, user: req.user.username, identity: 'student'});
+                    res.send({loggedIn: true, user: req.user.name, identity: 'student'});
                 });
             }else{
                 res.send({loggedIn: false, msg: "Your username or password is incorrect"});
@@ -42,7 +42,7 @@ const register = (req, res) => {
                     res.send({loggedIn: false, error: err});
                 }else{
                     passport.authenticate('studentLocal')(req, res, function(){
-                        res.send({loggedIn: true, user: req.user.username});
+                        res.send({loggedIn: true, user: req.user.name})
                     })
                 }
             })

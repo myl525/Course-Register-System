@@ -114,8 +114,11 @@ async function handleLogin(evt) {
     const data = await res.json();
     
     if(data.loggedIn) {
-        const url = '/' + data.identity + '/course';
-        location.href = url;
+        if(data.identity === 'admin') {
+            location.href = '/admin/course';
+        }else if(data.identity === 'student') {
+            location.href = '/student/home';
+        }
     }else {
         document.getElementById('loginUsername').classList.add('error_input');
         document.getElementById('loginPassword').classList.add('error_input');
@@ -144,7 +147,7 @@ async function handleRegister(evt) {
     const data = await res.json();
     
     if(data.loggedIn) {
-        window.location.reload();
+        location.href = '/student/home';
     }else {
         document.getElementById('registerUsername').classList.add('error_input');
         if(errorMsg.classList.contains('element_notdisplay')) {
